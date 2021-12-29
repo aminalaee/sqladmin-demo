@@ -1,3 +1,5 @@
+import os
+import uvicorn
 from faker import Faker
 from sqladmin import Admin
 from starlette.applications import Starlette
@@ -9,24 +11,27 @@ from models import db, Base, engine, User, Address
 
 
 def startup():
-    Base.metadata.create_all(engine)
     faker = Faker()
 
-    for _ in range(100):
-        user = User(name=faker.name(), email=faker.email())
-        db.add(user)
-        db.flush()
+    try:
+        Base.metadata.create_all(engine)
 
-        address = Address(
-            city=faker.city(),
-            country=faker.country(),
-            zipcode=faker.zipcode(),
-            user_id=user.id,
-        )
+        for _ in range(100):
+            user = User(name=faker.name(), email=faker.email())
+            db.add(user)
+            db.flush()
 
-        db.add(address)
+            address = Address(
+                city=faker.city(),
+                country=faker.country(),
+                zipcode=faker.zipcode(),
+                user_id=user.id,
+            )
 
-    db.commit()
+            db.add(address)
+        db.commit()
+    except Exception:
+        pass
 
 
 def shutdown():
@@ -44,3 +49,13 @@ admin = Admin(app=app, db=db)
 
 admin.register_model(UserAdmin)
 admin.register_model(AddressAdmin)
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "app:app",
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        log_level="info",
+        workers=2,
+    )
