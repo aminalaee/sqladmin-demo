@@ -1,0 +1,9 @@
+git+https://github.com/sqlalchemy-admin/sqladmin.git
+faker
+
+
+# Deployment
+uvicorn
+
+# Development
+black
