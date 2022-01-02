@@ -45,7 +45,7 @@ app = Starlette(
         Route("/", endpoint=RedirectResponse(url="/admin")),
     ],
 )
-admin = Admin(app=app, db=db)
+admin = Admin(app=app, engine=engine)
 
 admin.register_model(UserAdmin)
 admin.register_model(AddressAdmin)
