@@ -25,6 +25,9 @@ class User(Base):
         "Address", back_populates="user", cascade="all, delete, delete-orphan"
     )
 
+    def __str__(self):
+        return f"User ({self.id})"
+
 
 class Address(Base):
     __tablename__ = "addresses"
@@ -35,3 +38,6 @@ class Address(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="addresses")
+
+    def __str__(self):
+        return f"Address ({self.id})"
