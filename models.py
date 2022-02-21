@@ -21,9 +21,7 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String)
 
-    addresses = relationship(
-        "Address", back_populates="user", cascade="all, delete, delete-orphan"
-    )
+    addresses = relationship("Address", back_populates="user")
 
     def __str__(self):
         return f"User ({self.id})"
