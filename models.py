@@ -21,6 +21,7 @@ class User(Base):
     name = Column(String, nullable=False)
     email = Column(String)
 
+    profile = relationship("Profile", back_populates="user", uselist=False)
     addresses = relationship(
         "Address", back_populates="user", cascade="all, delete, delete-orphan"
     )
@@ -41,3 +42,17 @@ class Address(Base):
 
     def __str__(self):
         return f"Address ({self.id})"
+
+
+class Profile(Base):
+    __tablename__ = "profiles"
+
+    id = Column(Integer, primary_key=True)
+    metadata = Column(String)
+
+    user_id = Column(Integer, ForeignKey("users.id"))
+
+    user = relationship("User", back_populates="profile")
+
+    def __str__(self):
+        return f"Profile ({self.id})"

@@ -6,8 +6,8 @@ from starlette.applications import Starlette
 from starlette.responses import RedirectResponse
 from starlette.routing import Route
 
-from admin import UserAdmin, AddressAdmin
-from models import db, Base, engine, User, Address
+from admin import UserAdmin, AddressAdmin, ProfileAdmin
+from models import db, Base, engine, User, Address, Profile
 
 
 def startup():
@@ -28,7 +28,13 @@ def startup():
                 user_id=user.id,
             )
 
+            profile = Profile(
+                user=user,
+                metadata=faker.sentence(),
+            )
+
             db.add(address)
+            db.add(profile)
         db.commit()
     except Exception:
         pass
@@ -49,6 +55,7 @@ admin = Admin(app=app, engine=engine)
 
 admin.register_model(UserAdmin)
 admin.register_model(AddressAdmin)
+admin.register_model(ProfileAdmin)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 from sqladmin import ModelAdmin
 
-from models import User, Address
+from models import User, Address, Profile
 
 
 class UserAdmin(ModelAdmin, model=User):
@@ -10,4 +10,8 @@ class UserAdmin(ModelAdmin, model=User):
 
 class AddressAdmin(ModelAdmin, model=Address):
     name_plural = "Addresses"
-    column_list = ["id", "country", "city", "zipcode", "user_id"]
+    column_list = ["id", "country", "city", "zipcode", "user"]
+
+
+class ProfileAdmin(ModelAdmin, model=Profile):
+    column_list = [Profile.id, Profile.user, Profile.user_id]
