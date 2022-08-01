@@ -22,9 +22,7 @@ class User(Base):
     email = Column(String)
 
     profile = relationship("Profile", back_populates="user", uselist=False)
-    addresses = relationship(
-        "Address", back_populates="user", cascade="all, delete, delete-orphan"
-    )
+    addresses = relationship("Address", back_populates="user")
 
     def __str__(self):
         return f"User ({self.id})"
