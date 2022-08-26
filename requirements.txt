@@ -1,4 +1,4 @@
-git+https://github.com/sqlalchemy-admin/sqladmin.git
+sqladmin==0.3.0
 faker
 
 
