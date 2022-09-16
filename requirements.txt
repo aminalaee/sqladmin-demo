@@ -1,4 +1,4 @@
-sqladmin==0.3.0
+sqladmin==0.5.0
 faker
 
 

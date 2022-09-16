@@ -1,5 +1,6 @@
 import os
-import uvicorn
+
+import picologging
 from faker import Faker
 from sqladmin import Admin
 from starlette.applications import Starlette
@@ -8,6 +9,13 @@ from starlette.routing import Route
 
 from admin import UserAdmin, AddressAdmin, ProfileAdmin
 from models import db, Base, engine, User, Address, Profile
+
+# TODO
+from uvicorn import logging
+
+logging.logging = picologging
+
+import uvicorn
 
 
 def startup():
