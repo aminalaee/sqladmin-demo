@@ -5,7 +5,9 @@ from faker import Faker
 from sqladmin import Admin
 from starlette.applications import Starlette
 from starlette.responses import RedirectResponse
-from starlette.routing import Route
+from starlette.routing import Route, Mount
+from starlette.staticfiles import StaticFiles
+
 
 from admin import UserAdmin, AddressAdmin, ProfileAdmin
 from models import db, Base, engine, User, Address, Profile
@@ -50,6 +52,8 @@ app = Starlette(
     on_shutdown=[shutdown],
     routes=[
         Route("/", endpoint=RedirectResponse(url="/admin")),
+        Route("/robots.txt", endpoint=RedirectResponse(url="/static/robots.txt")),
+        Mount("/static", app=StaticFiles(directory="static"), name="static"),
     ],
 )
 admin = Admin(app=app, engine=engine)
