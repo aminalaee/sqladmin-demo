@@ -8,6 +8,7 @@ class UserAdmin(ModelAdmin, model=User):
     icon = "fa fa-user"
     column_list = [User.id, User.name, User.email]
     column_searchable_list = [User.name, User.email]
+    save_as = True
 
 
 class AddressAdmin(ModelAdmin, model=Address):
