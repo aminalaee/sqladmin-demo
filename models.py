@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session, relationship, sessionmaker
 
 Base = declarative_base()
 
-database_uri = os.environ.get("DATABASE_URI", "sqlite:///test.db")
+database_uri = os.environ.get("DATABASE_URI", "sqlite:////tmp/test.db")
 engine = create_engine(database_uri, connect_args={"check_same_thread": False})
 
 
